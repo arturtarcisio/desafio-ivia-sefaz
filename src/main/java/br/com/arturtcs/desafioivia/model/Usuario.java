@@ -11,28 +11,31 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Usuario implements Serializable{
-	
+public class Usuario implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private String nome;	
+	private String nome;
 	private String email;
 	private String senha;
-	
+	private String perfil;
+
 	@OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
 	private List<Telefone> telefones;
-	
-	public Usuario() {}
 
-	public Usuario(Long id, String nome, String email, String senha, List<Telefone> telefones) {
+	public Usuario() {
+	}
+
+	public Usuario(Long id, String nome, String email, String senha, String perfil, List<Telefone> telefones) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.senha = senha;
+		this.perfil = perfil;
 		this.telefones = telefones;
 	}
 
@@ -76,6 +79,14 @@ public class Usuario implements Serializable{
 		this.telefones = telefones;
 	}
 
+	public String getPerfil() {
+		return perfil;
+	}
+
+	public void setPerfil(String perfil) {
+		this.perfil = perfil;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -103,10 +114,8 @@ public class Usuario implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Usuario [id=" + id + ", nome=" + nome + ", email=" + email + ", senha=" + senha + ", telefones="
-				+ telefones + "]";
+		return "Usuario [id=" + id + ", nome=" + nome + ", email=" + email + ", senha=" + senha + ", perfil=" + perfil
+				+ ", telefones=" + telefones + "]";
 	}
-	
-	
 
 }
