@@ -8,7 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
-import br.com.arturtcs.desafioivia.dao.DaoGeneric;
+import br.com.arturtcs.desafioivia.dao.DaoUsuario;
 import br.com.arturtcs.desafioivia.model.Usuario;
 
 @ManagedBean(name = "usuarioManagedBean")
@@ -17,7 +17,7 @@ public class UsuarioManagedBean {
 	
 	private Usuario usuario = new Usuario();
 	private List<Usuario> list = new ArrayList<Usuario>();
-	private DaoGeneric<Usuario> dao = new DaoGeneric<Usuario>();
+	private DaoUsuario<Usuario> dao = new DaoUsuario<Usuario>();
 	
 	
 	public void init() {
@@ -43,7 +43,7 @@ public class UsuarioManagedBean {
 	public String excluirUsuario() {
 		
 		try {
-			dao.removerUsuarioCascata(usuario);
+			dao.removerUsuarioCascata(usuario);;
 			list.remove(usuario);
 			usuario = new Usuario();		
 			
