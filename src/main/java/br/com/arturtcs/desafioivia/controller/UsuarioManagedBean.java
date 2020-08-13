@@ -57,6 +57,13 @@ public class UsuarioManagedBean {
 
 		return "index.jsf";
 	}
+	
+	public boolean permiteAcesso(String acesso) {
+		Usuario usuario = (Usuario) FacesContext.getCurrentInstance()
+				.getExternalContext().getSessionMap().get("usuarioLogado");
+		return usuario.getPerfil().equals(acesso);
+		
+	}
 
 	public String salvar() {
 		dao.salvar(usuario);
