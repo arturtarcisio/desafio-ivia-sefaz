@@ -72,6 +72,8 @@ public class UsuarioManagedBean {
 		}		
 	}
 	
+	
+	
 	public String novo() {
 		usuario = new Usuario();
 		
