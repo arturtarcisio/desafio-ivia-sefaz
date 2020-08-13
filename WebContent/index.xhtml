@@ -16,11 +16,105 @@
 
 		<ui:include src="/menu.xhtml" />
 		
+		<h:form id="formularioCadastro">
+	
+		<h:messages showDetail="true" showSummary="false" id="msg"/>
+			
+		<h:panelGrid columns="2">
 		
-	</h:body>
-
-
-
-
+			<h:outputLabel rendered="false">Id:</h:outputLabel>
+			<h:inputText readonly="true" rendered="false" 
+				value="#{usuarioManagedBean.usuario.id}" />
+			
+			<h:outputLabel>Nome:</h:outputLabel>
+			<h:inputText value="#{usuarioManagedBean.usuario.nome}"
+				required="true"
+				requiredMessage="Favor informar um nome!" />
+				
+			<h:outputLabel>Email:</h:outputLabel>
+			<h:inputText value="#{usuarioManagedBean.usuario.email}"/>
+						
+			<h:outputLabel>Senha:</h:outputLabel>
+			<h:inputSecret value="#{usuarioManagedBean.usuario.senha}"/>
+						
+			<h:outputLabel>Perfil:</h:outputLabel>
+			<h:selectOneMenu value="#{usuarioManagedBean.usuario.perfil}"> 
+				<f:selectItem itemLabel="Administrador" itemValue="ADM"/>
+				<f:selectItem itemLabel="Padrão" itemValue="PADRAO"/>
+			</h:selectOneMenu>						
+			
+		</h:panelGrid>	
+		<br/>
+		
+		<h:commandButton value="Salvar" action="#{usuarioManagedBean.salvar}"/>
+		<h:commandButton value="Novo" action="#{usuarioManagedBean.novo}"/>
+		
+		<br/>
+		<br/>
+			
+		</h:form>
+		
+		<h:form id="formListaUsuarios">	
+			
+		<h:dataTable value="#{usuarioManagedBean.list}" var="usuario" cellpadding="9" border="1">
+			
+			<f:facet name="header">Lista de usuários</f:facet>
+			
+			<h:column rendered="false">
+				<f:facet name="header">Id</f:facet>
+				<h:outputText value="#{usuario.id}"/>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Nome</f:facet>
+				<h:outputText value="#{usuario.nome}"/>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Email</f:facet>
+				<h:outputText value="#{usuario.email}"/>
+			</h:column>
+						
+			<h:column>
+				<f:facet name="header">Email</f:facet>
+				<h:outputText value="#{user.email}"/>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Perfil</f:facet>
+				<h:outputText value="#{usuario.login}"/>
+			</h:column>		
+			
+			<h:column>
+				<f:facet name="header">Editar</f:facet>
+				<h:commandLink immediate="true" id="botaoeditar">		
+					<h:graphicImage alt="Icone de editar" url="resources/img/editarIcon.png" width="43" height="40"/>
+					<f:setPropertyActionListener value="#{usuario}" target="#{usuarioManagedBean.usuario}"/>
+					<f:ajax execute="botaoeditar" render=":formularioCadastro"/>
+				</h:commandLink>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Excluir</f:facet>
+				<h:commandLink action="#{usuarioManagedBean.excluirUsuario}" id="botaoremover" immediate="true">
+					<h:graphicImage alt="Icone de deletar" url="resources/img/deleteIcon.png" width="43" height="40" />
+					<f:setPropertyActionListener value="#{usuario}" target="#{usuarioManagedBean.usuario}"/>
+					<f:ajax execute="botaoremover" render="@form :formularioCadastro:msg"/>
+				</h:commandLink>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Telefones</f:facet>
+				<h:commandLink action="telefone.jsf" id="botaofone" >
+					<h:graphicImage alt="Icone de cadastro de telefone" url="resources/img/phoneIcon.png" width="43" height="40"/> 
+					<f:param name="codigousuario" value="#{usuario.id}"/>					
+				</h:commandLink>
+			</h:column>
+		
+		</h:dataTable>	
+			
+	</h:form>
+		
+</h:body>
 
 </html>
