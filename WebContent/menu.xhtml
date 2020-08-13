@@ -5,10 +5,12 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 	
-	<p:breadCrumb>
-		<p:menuitem value="" url="#" />
-	    <p:menuitem value="Cadastro de Usuário" url="index.jsf" />
-	    <p:menuitem value="Logout" url="#" action="#{usuarioManagedBean.logout}" />
-	</p:breadCrumb>
+	<h:form>
+		<p:breadCrumb>
+			<p:menuitem value="" url="#" />
+		    <p:menuitem value="Cadastro de Usuário" url="index.jsf" />
+		    <p:menuitem value="Logout" action="#{usuarioManagedBean.logout}" />
+		</p:breadCrumb>
+	</h:form>
 
 </html>
