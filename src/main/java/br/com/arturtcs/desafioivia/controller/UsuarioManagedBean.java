@@ -14,6 +14,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
+import javax.servlet.http.HttpServletRequest;
 
 import com.google.gson.Gson;
 
@@ -42,6 +43,17 @@ public class UsuarioManagedBean {
 
 			return "usuarioCadastro.jsf";
 		}
+
+		return "index.jsf";
+	}
+	
+	public String logout() {
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("usuarioLogado");
+
+		HttpServletRequest httpServletRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
+				.getRequest();
+
+		httpServletRequest.getSession().invalidate();
 
 		return "index.jsf";
 	}
