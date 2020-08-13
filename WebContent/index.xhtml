@@ -19,8 +19,12 @@
 		<h:form id="formularioCadastro">
 	
 		<h:messages showDetail="true" showSummary="false" id="msg"/>
+		
+		
 			
 		<h:panelGrid columns="2">
+		
+			<f:facet name="header">Cadastro</f:facet>
 		
 			<h:outputLabel rendered="false">Id:</h:outputLabel>
 			<h:inputText readonly="true" rendered="false" 
@@ -74,15 +78,10 @@
 				<f:facet name="header">Email</f:facet>
 				<h:outputText value="#{usuario.email}"/>
 			</h:column>
-						
-			<h:column>
-				<f:facet name="header">Email</f:facet>
-				<h:outputText value="#{user.email}"/>
-			</h:column>
 			
 			<h:column>
 				<f:facet name="header">Perfil</f:facet>
-				<h:outputText value="#{usuario.login}"/>
+				<h:outputText value="#{usuario.perfil}"/>
 			</h:column>		
 			
 			<h:column>
