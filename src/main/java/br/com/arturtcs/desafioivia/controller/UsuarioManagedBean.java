@@ -45,7 +45,7 @@ public class UsuarioManagedBean {
 	
 	public void pesquisaCep(AjaxBehaviorEvent event) {
 		try {
-			System.out.println("Cep digitado " + usuario.getCep() );
+			
 			URL url = new URL("https://viacep.com.br/ws/" + usuario.getCep() + "/json/");
 			URLConnection connection = url.openConnection();
 			InputStream is = connection.getInputStream();
