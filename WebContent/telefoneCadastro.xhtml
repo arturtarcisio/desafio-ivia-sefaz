@@ -20,80 +20,81 @@
 
 	<h:form id="formCadastroTelefone">
 	
-		<h:messages showDetail="true" showSummary="false" id="msg"/>
+		<p:messages showDetail="true" showSummary="false" id="msg"/>
 		
 		<h:panelGrid columns="2">
 		
-			<h:outputLabel rendered="false">Id :</h:outputLabel>
-			<h:inputText rendered="false" readonly="true" value="#{telefoneManagedBean.telefone.id}"/>
+			<p:outputLabel rendered="false">Id :</p:outputLabel>
+			<p:inputText rendered="false" readonly="true" value="#{telefoneManagedBean.telefone.id}"/>
 		
-			<h:outputLabel>Usuário: </h:outputLabel>
-			<h:outputText value="#{telefoneManagedBean.usuario.nome}"/>	
+			<p:outputLabel>Usuário: </p:outputLabel>
+			<p:inputText readonly="true" value="#{telefoneManagedBean.usuario.nome}"/>	
 			
-			<h:outputLabel>DDD: </h:outputLabel>
-			<h:inputText value="#{telefoneManagedBean.telefone.ddd}"/>
+			<p:outputLabel>DDD: </p:outputLabel>
+			<p:inputText value="#{telefoneManagedBean.telefone.ddd}" pt:placeholder="81"
+				required="true"
+				requiredMessage="Informe o seu DDD"/>
 			
-			<h:outputLabel>Número: </h:outputLabel>
-			<h:inputText value="#{telefoneManagedBean.telefone.numero}"/>
+			<p:outputLabel>Número: </p:outputLabel>
+			<p:inputText decimalPlaces="0" value="#{telefoneManagedBean.telefone.numero}"
+				pt:placeholder="Apenas números"
+				required="true"
+				requiredMessage="Informe o número de seu telefone"/>
 			
-			<h:outputLabel>Tipo: </h:outputLabel>
-			<h:selectOneMenu value="#{telefoneManagedBean.telefone.tipo}"> 
+			<p:outputLabel>Tipo: </p:outputLabel>
+			<p:selectOneMenu value="#{telefoneManagedBean.telefone.tipo}"> 
 				<f:selectItem itemLabel="[--Selecione--]" noSelectionOption="true" />
 				<f:selectItem itemLabel="Fixo" itemValue="FIXO"/>
 				<f:selectItem itemLabel="Celular" itemValue="CELULAR"/>
-			</h:selectOneMenu>
+			</p:selectOneMenu>
 			
 		</h:panelGrid>
 		
 		<br/>
 		<br/>
 		
-		<h:commandButton value="Salvar" action="#{telefoneManagedBean.salvar}"/>
-		<h:commandButton value="Novo" action="#{telefoneManagedBean.novoTelefone}"/>
+		<p:commandButton value="Salvar" ajax="false" action="#{telefoneManagedBean.salvar}"/>
+		<p:commandButton value="Novo" ajax="false" action="#{telefoneManagedBean.novoTelefone}" immediate="true"/>
 		
 		<br/>
 		<br/>
 			
 		<h:form id="formTelefones">
 		
-			<h:dataTable value="#{telefoneManagedBean.usuario.telefones}" var="fone" cellpadding="9" border="1" id="tabelaFone">
+			<p:dataTable value="#{telefoneManagedBean.usuario.telefones}" var="fone" 
+				cellpadding="9" border="1" id="tabelaFone">
 			
 				<f:facet name="header">Lista de telefones</f:facet>
 				
-				<h:column>
-					<f:facet name="header">DDD</f:facet>
+				<p:column headerText="DDD">
 					<h:outputText value="#{fone.ddd}"/>
-				</h:column>
+				</p:column>
 				
-				<h:column>
-					<f:facet name="header">Número</f:facet>
+				<p:column headerText="Numero">
 					<h:outputText value="#{fone.numero}"/>
-				</h:column>
+				</p:column>
 				
-				<h:column>
-					<f:facet name="header">Tipo</f:facet>
+				<p:column headerText="Tipo">
 					<h:outputText value="#{fone.tipo}"/>
-				</h:column>
+				</p:column>
 				
-				<h:column>
-					<f:facet name="header">Editar</f:facet>
+				<p:column headerText="Editar">
 					<h:commandLink immediate="true" id="botaoeditartelefone">		
 						<h:graphicImage alt="Icone de editar" url="resources/img/editarIcon.png" width="43" height="40"/>
 						<f:setPropertyActionListener value="#{fone}" target="#{telefoneManagedBean.telefone}"/>
 						<f:ajax execute="botaoeditartelefone" render=":formCadastroTelefone"/>
 					</h:commandLink>
-				</h:column>
+				</p:column>
 			
-				<h:column>
-					<f:facet name="header">Excluir</f:facet>
+				<p:column headerText="Excluir">
 					<h:commandLink action="#{telefoneManagedBean.removerTelefone}" id="botaoremovertelefone" immediate="true">
 						<h:graphicImage alt="Icone de deletar" url="resources/img/deleteIcon.png" width="43" height="40" />
 						<f:setPropertyActionListener value="#{fone}" target="#{telefoneManagedBean.telefone}"/>
 						<f:ajax execute="botaoremovertelefone" render="@form :formCadastroTelefone:msg"/>
 					</h:commandLink>
-				</h:column>
+				</p:column>
 							
-			</h:dataTable>
+			</p:dataTable>
 		
 		</h:form>		
 			
