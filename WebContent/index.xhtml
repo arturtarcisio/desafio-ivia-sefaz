@@ -6,148 +6,28 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
-	
-	<h:head>
-		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-		<title>Cadastro Usuário</title>
-	</h:head>
 
-	<h:body>
+<h:head>
+	<title>Login</title>
+</h:head>
 
-		<ui:include src="/menu.xhtml" />
+<h:body>
+
+	<h:form id="formLogin" style="margin-top:20%; margin-left:40%;">
+		<h1>Realize o login</h1>
 		
-		<h:form id="formularioCadastro">
-	
-			<p:messages showDetail="true" showSummary="false" id="msg"/>
-					
-			<h:panelGrid columns="2">
-		
-				<f:facet name="header">Cadastro</f:facet>
-		
-				<p:outputLabel rendered="false">Id:</p:outputLabel>
-				<p:inputText readonly="true" rendered="false" 
-					value="#{usuarioManagedBean.usuario.id}" />
-				
-				<p:outputLabel>Nome:</p:outputLabel>
-				<p:inputText value="#{usuarioManagedBean.usuario.nome}"
-					required="true"
-					requiredMessage="Favor informar um nome!" pt:placeholder="Nome completo"/>
-					
-				<p:outputLabel>Cep:</p:outputLabel>
-				<p:inputText value="#{usuarioManagedBean.usuario.cep}" id="cepuser" pt:placeholder="Apenas números">
-					<f:ajax event="blur" execute="@this" listener="#{usuarioManagedBean.pesquisaCep}" 
-					render="complementouser localidadeuser logradourouser ufuser"/>
-				</p:inputText>
+		<h:panelGrid columns="2">
+			<h:outputLabel value="Login:"/>
+			<h:inputText value="#{usuarioManagedBean.usuario.email}"/>
 			
-				<p:outputLabel>Complemento:</p:outputLabel>
-				<p:inputText readonly="true" value="#{usuarioManagedBean.usuario.complemento}" id="complementouser"/>
-				
-				<p:outputLabel>Localidade:</p:outputLabel>
-				<p:inputText readonly="true" value="#{usuarioManagedBean.usuario.localidade}" id="localidadeuser"/>
-				
-				<p:outputLabel>Logradouro:</p:outputLabel>
-				<p:inputText readonly="true" value="#{usuarioManagedBean.usuario.logradouro}" id="logradourouser"/>
-				
-				<p:outputLabel>Uf:</p:outputLabel>
-				<p:inputText readonly="true" value="#{usuarioManagedBean.usuario.uf}" id="ufuser"/>
-					
-				<p:outputLabel>Email:</p:outputLabel>
-				<p:inputText value="#{usuarioManagedBean.usuario.email}"
-					required="true"
-					requiredMessage="Favor um email!"/>
-							
-				<p:outputLabel>Senha:</p:outputLabel>
-				<p:password value="#{usuarioManagedBean.usuario.senha}" 
-					required="true"
-					requiredMessage="Favor informar uma senha!" />
-						
-				<p:outputLabel>Perfil:</p:outputLabel>
-				<p:selectOneMenu value="#{usuarioManagedBean.usuario.perfil}"> 
-					<f:selectItem itemLabel="[--Selecione--]" noSelectionOption="true" />
-					<f:selectItem itemLabel="Administrador" itemValue="ADM"/>
-					<f:selectItem itemLabel="Padrão" itemValue="PADRAO"/>
-				</p:selectOneMenu>						
-				
-			</h:panelGrid>	
-		<br/>
-		
-		<p:commandButton value="Salvar" ajax="false" action="#{usuarioManagedBean.salvar}" id="salvarButton"/>		
-		<p:commandButton value="Novo" ajax="false" action="#{usuarioManagedBean.novo}" id="novoButton"/>
-		
-		<br/>
-		<br/>
+			<h:outputLabel value="Senha:"/>
+			<h:inputSecret value="#{usuarioManagedBean.usuario.senha}"/>
 			
-		</h:form>
-		
-		<h:form id="formListaUsuarios">	
-			
-		<p:dataTable value="#{usuarioManagedBean.list}" var="usuario" cellpadding="9" border="1">
-			
-			<f:facet name="header">Lista de usuários</f:facet>
-			
-			<p:column headerText="ID" rendered="false">
-				<h:outputText value="#{usuario.id}"/>
-			</p:column>
-			
-			<p:column headerText="Nome">
-				<h:outputText value="#{usuario.nome}"/>
-			</p:column>
-			
-			<p:column headerText="Cep">
-				<h:outputText value="#{usuario.cep}"/>
-			</p:column>
-			
-			<p:column headerText="Localidade">
-				<h:outputText value="#{usuario.localidade}"/>
-			</p:column>
-			
-			<p:column headerText="Bairro">
-				<h:outputText value="#{usuario.bairro}"/>
-			</p:column>
-			
-			<p:column headerText="Complemento">
-				<h:outputText value="#{usuario.complemento}"/>
-			</p:column>
-			
-			<p:column headerText="Logradouro">
-				<h:outputText value="#{usuario.logradouro}"/>
-			</p:column>
-			
-			<p:column headerText="Email">
-				<h:outputText value="#{usuario.email}"/>
-			</p:column>
-			
-			<p:column headerText="Perfil">
-				<h:outputText value="#{usuario.perfil}"/>
-			</p:column>		
-			
-			<p:column headerText="Editar">
-				<h:commandLink immediate="true" id="botaoeditar">		
-					<h:graphicImage alt="Icone de editar" url="resources/img/editarIcon.png" width="43" height="40"/>
-					<f:setPropertyActionListener value="#{usuario}" target="#{usuarioManagedBean.usuario}"/>
-					<f:ajax execute="botaoeditar" render=":formularioCadastro"/>
-				</h:commandLink>
-			</p:column>
-			
-			<p:column headerText="Excluir">
-				<h:commandLink action="#{usuarioManagedBean.excluirUsuario}" id="botaoremover" immediate="true">
-					<h:graphicImage alt="Icone de deletar" url="resources/img/deleteIcon.png" width="43" height="40" />
-					<f:setPropertyActionListener value="#{usuario}" target="#{usuarioManagedBean.usuario}"/>
-					<f:ajax execute="botaoremover" render="@form :formularioCadastro:msg"/>
-				</h:commandLink>
-			</p:column>
-			
-			<p:column headerText="Telefone">
-				<h:commandLink action="telefoneCadastro.jsf" id="botaofone" >
-					<h:graphicImage alt="Icone de cadastro de telefone" url="resources/img/phoneIcon.png" width="43" height="40"/> 
-					<f:param name="codigousuario" value="#{usuario.id}"/>					
-				</h:commandLink>
-			</p:column>
-		
-		</p:dataTable>	
-			
+			<h:commandButton value="Acessar" action="#{usuarioManagedBean.logar}"/>
+		</h:panelGrid>	
 	</h:form>
-		
+	
 </h:body>
+
 
 </html>
