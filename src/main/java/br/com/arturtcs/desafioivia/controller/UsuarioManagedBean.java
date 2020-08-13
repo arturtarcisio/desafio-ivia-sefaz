@@ -1,5 +1,10 @@
 package br.com.arturtcs.desafioivia.controller;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +13,9 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
+
+import com.google.gson.Gson;
 
 import br.com.arturtcs.desafioivia.dao.DaoUsuario;
 import br.com.arturtcs.desafioivia.model.Usuario;
@@ -33,6 +41,35 @@ public class UsuarioManagedBean {
 				new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Usuário cadastrado com sucesso!"));
 		
 		return "";
+	}
+	
+	public void pesquisaCep(AjaxBehaviorEvent event) {
+		try {
+			System.out.println("Cep digitado " + usuario.getCep() );
+			URL url = new URL("https://viacep.com.br/ws/" + usuario.getCep() + "/json/");
+			URLConnection connection = url.openConnection();
+			InputStream is = connection.getInputStream();
+			BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+					
+			String cep = "";
+			StringBuilder jsonCep = new StringBuilder();
+			
+			while((cep = br.readLine()) != null) {
+				jsonCep.append(cep);
+			}
+			
+			Usuario usuarioCep = new Gson().fromJson(jsonCep.toString(), Usuario.class);
+			
+			usuario.setCep(usuarioCep.getCep());
+			usuario.setLogradouro(usuarioCep.getLogradouro());
+			usuario.setComplemento(usuarioCep.getComplemento());
+			usuario.setBairro(usuarioCep.getBairro());
+			usuario.setLocalidade(usuarioCep.getLocalidade());
+			usuario.setUf(usuarioCep.getUf());
+										
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
 	}
 	
 	public String novo() {

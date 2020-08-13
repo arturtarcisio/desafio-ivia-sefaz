@@ -32,16 +32,12 @@ public class Usuario implements Serializable {
 	private String bairro;
 	private String localidade;
 	private String uf;
-	private String unidade;
-	private String ibge;
-	private String gia;
 
 	public Usuario() {
 	}
 
 	public Usuario(Long id, String nome, String email, String senha, String perfil, List<Telefone> telefones,
-			String cep, String logradouro, String complemento, String bairro, String localidade, String uf,
-			String unidade, String ibge, String gia) {
+			String cep, String logradouro, String complemento, String bairro, String localidade, String uf) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -55,9 +51,6 @@ public class Usuario implements Serializable {
 		this.bairro = bairro;
 		this.localidade = localidade;
 		this.uf = uf;
-		this.unidade = unidade;
-		this.ibge = ibge;
-		this.gia = gia;
 	}
 
 	public Long getId() {
@@ -156,30 +149,6 @@ public class Usuario implements Serializable {
 		this.uf = uf;
 	}
 
-	public String getUnidade() {
-		return unidade;
-	}
-
-	public void setUnidade(String unidade) {
-		this.unidade = unidade;
-	}
-
-	public String getIbge() {
-		return ibge;
-	}
-
-	public void setIbge(String ibge) {
-		this.ibge = ibge;
-	}
-
-	public String getGia() {
-		return gia;
-	}
-
-	public void setGia(String gia) {
-		this.gia = gia;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -209,8 +178,7 @@ public class Usuario implements Serializable {
 	public String toString() {
 		return "Usuario [id=" + id + ", nome=" + nome + ", email=" + email + ", senha=" + senha + ", perfil=" + perfil
 				+ ", telefones=" + telefones + ", cep=" + cep + ", logradouro=" + logradouro + ", complemento="
-				+ complemento + ", bairro=" + bairro + ", localidade=" + localidade + ", uf=" + uf + ", unidade="
-				+ unidade + ", ibge=" + ibge + ", gia=" + gia + "]";
+				+ complemento + ", bairro=" + bairro + ", localidade=" + localidade + ", uf=" + uf + "]";
 	}
 
 }

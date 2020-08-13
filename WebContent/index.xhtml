@@ -33,6 +33,24 @@
 				required="true"
 				requiredMessage="Favor informar um nome!" />
 				
+			<h:outputLabel>Cep:</h:outputLabel>
+			<h:inputText value="#{usuarioManagedBean.usuario.cep}" id="cepuser">
+				<f:ajax event="blur" execute="@this" listener="#{usuarioManagedBean.pesquisaCep}" 
+				render="complementouser localidadeuser logradourouser ufuser"/>
+			</h:inputText>
+			
+			<h:outputLabel>Complemento:</h:outputLabel>
+			<h:inputText readonly="true" value="#{usuarioManagedBean.usuario.complemento}" id="complementouser"/>
+			
+			<h:outputLabel>Localidade:</h:outputLabel>
+			<h:inputText readonly="true" value="#{usuarioManagedBean.usuario.localidade}" id="localidadeuser"/>
+			
+			<h:outputLabel>Logradouro:</h:outputLabel>
+			<h:inputText readonly="true" value="#{usuarioManagedBean.usuario.logradouro}" id="logradourouser"/>
+			
+			<h:outputLabel>Uf:</h:outputLabel>
+			<h:inputText readonly="true" value="#{usuarioManagedBean.usuario.uf}" id="ufuser"/>
+				
 			<h:outputLabel>Email:</h:outputLabel>
 			<h:inputText value="#{usuarioManagedBean.usuario.email}"/>
 						
