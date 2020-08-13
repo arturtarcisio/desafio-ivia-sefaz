@@ -45,8 +45,17 @@ public class TelefoneManagedBean {
 	}
 	
 	public String removerTelefone() {
+		try {
+			telefone.setUsuario(usuario);
+			daoTelefone.deletarPorId(telefone);
+			usuario = daoUsuario.pesquisar(Usuario.class, usuario.getId());
+			FacesContext.getCurrentInstance().addMessage(null, 
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Telefone excluído com sucesso!"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
 		
-		
+		telefone = new Telefone();
 		return "";
 	}	
 	

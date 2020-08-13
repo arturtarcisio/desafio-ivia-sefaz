@@ -38,6 +38,7 @@
 			
 			<h:outputLabel>Tipo: </h:outputLabel>
 			<h:selectOneMenu value="#{telefoneManagedBean.telefone.tipo}"> 
+				<f:selectItem itemLabel="[--Selecione--]" noSelectionOption="true" />
 				<f:selectItem itemLabel="Fixo" itemValue="FIXO"/>
 				<f:selectItem itemLabel="Celular" itemValue="CELULAR"/>
 			</h:selectOneMenu>

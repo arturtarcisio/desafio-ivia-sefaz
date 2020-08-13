@@ -41,6 +41,7 @@
 						
 			<h:outputLabel>Perfil:</h:outputLabel>
 			<h:selectOneMenu value="#{usuarioManagedBean.usuario.perfil}"> 
+				<f:selectItem itemLabel="[--Selecione--]" noSelectionOption="true" />
 				<f:selectItem itemLabel="Administrador" itemValue="ADM"/>
 				<f:selectItem itemLabel="Padrão" itemValue="PADRAO"/>
 			</h:selectOneMenu>						

@@ -21,7 +21,7 @@ public class DaoGeneric<T> {
 	public T pesquisar(Class<T> entidade, Long id) {
 		em.clear();
 		T entidadeRetornada = em.find(entidade, id);
-		
+		//T entidadeRetornada = (T) em.createQuery("from " + entidade.getSimpleName() + " where id = " + id).getSingleResult();
 		return entidadeRetornada;
 	}
 	
