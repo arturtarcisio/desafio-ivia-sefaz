@@ -12,7 +12,5 @@ public class DaoUsuario<T> extends DaoGeneric<Usuario> {
 		
 		super.deletarPorId(usuario);
 	}
-	
-	
 
 }
