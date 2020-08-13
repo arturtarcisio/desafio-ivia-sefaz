@@ -72,6 +72,7 @@ public class UsuarioManagedBean {
 		FacesContext.getCurrentInstance().addMessage(null,
 				new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Usuário cadastrado com sucesso!"));
 
+		usuario = new Usuario();
 		return "";
 	}
 

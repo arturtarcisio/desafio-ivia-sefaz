@@ -78,7 +78,7 @@
 					<h:outputText value="#{fone.tipo}"/>
 				</p:column>
 				
-				<p:column headerText="Editar">
+				<p:column headerText="Editar" rendered="#{usuarioManagedBean.permiteAcesso('ADM')}">
 					<h:commandLink immediate="true" id="botaoeditartelefone">		
 						<h:graphicImage alt="Icone de editar" url="resources/img/editarIcon.png" width="43" height="40"/>
 						<f:setPropertyActionListener value="#{fone}" target="#{telefoneManagedBean.telefone}"/>
@@ -86,7 +86,7 @@
 					</h:commandLink>
 				</p:column>
 			
-				<p:column headerText="Excluir">
+				<p:column headerText="Excluir" rendered="#{usuarioManagedBean.permiteAcesso('ADM')}">
 					<h:commandLink action="#{telefoneManagedBean.removerTelefone}" id="botaoremovertelefone" immediate="true">
 						<h:graphicImage alt="Icone de deletar" url="resources/img/deleteIcon.png" width="43" height="40" />
 						<f:setPropertyActionListener value="#{fone}" target="#{telefoneManagedBean.telefone}"/>

@@ -117,11 +117,11 @@
 				<h:outputText value="#{usuario.email}"/>
 			</p:column>
 			
-			<p:column headerText="Perfil">
+			<p:column headerText="Perfil" rendered="#{usuarioManagedBean.permiteAcesso('ADM')}">
 				<h:outputText value="#{usuario.perfil}"/>
 			</p:column>		
 			
-			<p:column headerText="Editar">
+			<p:column headerText="Editar" rendered="#{usuarioManagedBean.permiteAcesso('ADM')}">
 				<h:commandLink immediate="true" id="botaoeditar">		
 					<h:graphicImage alt="Icone de editar" url="resources/img/editarIcon.png" width="43" height="40"/>
 					<f:setPropertyActionListener value="#{usuario}" target="#{usuarioManagedBean.usuario}"/>
@@ -129,7 +129,7 @@
 				</h:commandLink>
 			</p:column>
 			
-			<p:column headerText="Excluir">
+			<p:column headerText="Excluir" rendered="#{usuarioManagedBean.permiteAcesso('ADM')}">
 				<h:commandLink action="#{usuarioManagedBean.excluirUsuario}" id="botaoremover" immediate="true">
 					<h:graphicImage alt="Icone de deletar" url="resources/img/deleteIcon.png" width="43" height="40" />
 					<f:setPropertyActionListener value="#{usuario}" target="#{usuarioManagedBean.usuario}"/>
