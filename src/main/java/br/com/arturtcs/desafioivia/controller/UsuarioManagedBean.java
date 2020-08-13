@@ -67,7 +67,7 @@ public class UsuarioManagedBean {
 
 	public String salvar() {
 		dao.salvar(usuario);
-		list.add(usuario);
+		//list.add(usuario);
 
 		FacesContext.getCurrentInstance().addMessage(null,
 				new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Usuário cadastrado com sucesso!"));
@@ -86,7 +86,7 @@ public class UsuarioManagedBean {
 
 		try {
 			dao.removerUsuarioCascata(usuario);
-			;
+			
 			list.remove(usuario);
 			usuario = new Usuario();
 
