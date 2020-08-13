@@ -46,12 +46,12 @@ public class UsuarioManagedBean {
 
 		return "index.jsf";
 	}
-	
+
 	public String logout() {
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("usuarioLogado");
 
-		HttpServletRequest httpServletRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
-				.getRequest();
+		HttpServletRequest httpServletRequest = (HttpServletRequest) FacesContext.getCurrentInstance()
+				.getExternalContext().getRequest();
 
 		httpServletRequest.getSession().invalidate();
 
@@ -66,35 +66,6 @@ public class UsuarioManagedBean {
 				new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Usuário cadastrado com sucesso!"));
 
 		return "";
-	}
-
-	public void pesquisaCep(AjaxBehaviorEvent event) {
-		try {
-
-			URL url = new URL("https://viacep.com.br/ws/" + usuario.getCep() + "/json/");
-			URLConnection connection = url.openConnection();
-			InputStream is = connection.getInputStream();
-			BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-
-			String cep = "";
-			StringBuilder jsonCep = new StringBuilder();
-
-			while ((cep = br.readLine()) != null) {
-				jsonCep.append(cep);
-			}
-
-			Usuario usuarioCep = new Gson().fromJson(jsonCep.toString(), Usuario.class);
-
-			usuario.setCep(usuarioCep.getCep());
-			usuario.setLogradouro(usuarioCep.getLogradouro());
-			usuario.setComplemento(usuarioCep.getComplemento());
-			usuario.setBairro(usuarioCep.getBairro());
-			usuario.setLocalidade(usuarioCep.getLocalidade());
-			usuario.setUf(usuarioCep.getUf());
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	public String novo() {
@@ -126,6 +97,35 @@ public class UsuarioManagedBean {
 		usuario = new Usuario();
 
 		return "";
+	}
+
+	public void pesquisaCep(AjaxBehaviorEvent event) {
+		try {
+
+			URL url = new URL("https://viacep.com.br/ws/" + usuario.getCep() + "/json/");
+			URLConnection connection = url.openConnection();
+			InputStream is = connection.getInputStream();
+			BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+
+			String cep = "";
+			StringBuilder jsonCep = new StringBuilder();
+
+			while ((cep = br.readLine()) != null) {
+				jsonCep.append(cep);
+			}
+
+			Usuario usuarioCep = new Gson().fromJson(jsonCep.toString(), Usuario.class);
+
+			usuario.setCep(usuarioCep.getCep());
+			usuario.setLogradouro(usuarioCep.getLogradouro());
+			usuario.setComplemento(usuarioCep.getComplemento());
+			usuario.setBairro(usuarioCep.getBairro());
+			usuario.setLocalidade(usuarioCep.getLocalidade());
+			usuario.setUf(usuarioCep.getUf());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public Usuario getUsuario() {
