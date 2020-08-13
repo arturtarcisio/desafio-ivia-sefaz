@@ -1,8 +1,10 @@
 package br.com.arturtcs.desafioivia.controller;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import br.com.arturtcs.desafioivia.dao.DaoTelefone;
 import br.com.arturtcs.desafioivia.dao.DaoUsuario;
@@ -21,10 +23,18 @@ public class TelefoneManagedBean {
 	
 	@PostConstruct
 	private void init() {
-		
+		String coduser = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap()
+				.get("codigousuario");
+		usuario = daoUsuario.pesquisar(Usuario.class, Long.parseLong(coduser));
 	}
 	
 	public String salvar() {
+		telefone.setUsuario(usuario);
+		daoTelefone.salvar(telefone);
+		telefone = new Telefone();
+		usuario = daoUsuario.pesquisar(Usuario.class, usuario.getId());
+		FacesContext.getCurrentInstance().addMessage(null, 
+				new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Telefone cadastrado com sucesso!"));
 		
 		return "";
 	}
