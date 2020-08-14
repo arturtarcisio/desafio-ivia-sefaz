@@ -67,29 +67,25 @@ public class UsuarioManagedBean {
 
 	public String salvar() {
 		dao.salvar(usuario);
+		usuario = new Usuario();
 		//list.add(usuario);
 
 		FacesContext.getCurrentInstance().addMessage(null,
-				new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Usuário cadastrado com sucesso!"));
+				new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Salvo com sucesso!"));
 
-		usuario = new Usuario();
+		init();
 		return "";
 	}
 
 	public String novo() {
 		usuario = new Usuario();
-
 		return "";
 	}
 
 	public String excluirUsuario() {
-
 		try {
 			dao.removerUsuarioCascata(usuario);
-			
-			list.remove(usuario);
 			usuario = new Usuario();
-
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Excluído com sucesso!"));
 
@@ -102,7 +98,7 @@ public class UsuarioManagedBean {
 			}
 		}
 
-		usuario = new Usuario();
+		init();
 
 		return "";
 	}

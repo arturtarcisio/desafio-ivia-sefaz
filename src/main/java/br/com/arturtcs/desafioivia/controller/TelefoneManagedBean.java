@@ -31,7 +31,7 @@ public class TelefoneManagedBean {
 	public String salvar() {
 		telefone.setUsuario(usuario);
 		daoTelefone.atualizar(telefone);
-		telefone = new Telefone();
+		
 		usuario = daoUsuario.pesquisar(Usuario.class, usuario.getId());
 		FacesContext.getCurrentInstance().addMessage(null, 
 				new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Telefone cadastrado com sucesso!"));
