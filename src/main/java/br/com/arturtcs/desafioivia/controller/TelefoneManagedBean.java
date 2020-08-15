@@ -34,7 +34,7 @@ public class TelefoneManagedBean {
 		
 		usuario = daoUsuario.pesquisar(Usuario.class, usuario.getId());
 		FacesContext.getCurrentInstance().addMessage(null, 
-				new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Telefone cadastrado com sucesso!"));
+				new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Salvo com sucesso!"));
 		
 		telefone = new Telefone();
 		return "";
@@ -51,7 +51,7 @@ public class TelefoneManagedBean {
 			daoTelefone.deletarPorId(telefone);
 			usuario = daoUsuario.pesquisar(Usuario.class, usuario.getId());
 			FacesContext.getCurrentInstance().addMessage(null, 
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Telefone excluído com sucesso!"));
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Removido com sucesso!"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		

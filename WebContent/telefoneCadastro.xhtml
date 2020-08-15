@@ -4,8 +4,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 	<title>Cadastro telefone</title>
@@ -13,14 +12,14 @@
 
 <h:body>
 
-	<ui:include src="menu.xhtml"></ui:include>
+	<ui:include src="menu.xhtml"/>
 	
 	<br/>
 	<br/>
 
-	<h:form id="formCadastroTelefone">
-	
-		<p:messages showDetail="true" showSummary="false" id="msg"/>
+	<h:form id="formCadastroTelefone">	
+		
+		<p:growl autoUpdate="true" showDetail="true" id="msg"/>
 		
 		<h:panelGrid columns="2">
 		
@@ -31,15 +30,12 @@
 			<p:inputText readonly="true" value="#{telefoneManagedBean.usuario.nome}"/>	
 			
 			<p:outputLabel>DDD: </p:outputLabel>
-			<p:inputText value="#{telefoneManagedBean.telefone.ddd}" pt:placeholder="81"
-				required="true"
-				requiredMessage="Informe o seu DDD"/>
+			<p:inputText value="#{telefoneManagedBean.telefone.ddd}" required="true" 
+				requiredMessage="Informe o seu DDD" id="dddInputText" placeholder="81"/>
 			
 			<p:outputLabel>Número: </p:outputLabel>
-			<p:inputText decimalPlaces="0" value="#{telefoneManagedBean.telefone.numero}"
-				pt:placeholder="Apenas números"
-				required="true"
-				requiredMessage="Informe o número de seu telefone"/>
+			<p:inputText decimalPlaces="0" value="#{telefoneManagedBean.telefone.numero}" required="true"
+				requiredMessage="Informe o número de seu telefone" id="numeroInputText" placeholder="Apenas números"/>
 			
 			<p:outputLabel>Tipo: </p:outputLabel>
 			<p:selectOneMenu value="#{telefoneManagedBean.telefone.tipo}"> 
@@ -81,19 +77,23 @@
 				</p:column>
 				
 				<p:column headerText="Editar" rendered="#{usuarioManagedBean.permiteAcesso('ADM')}">
-					<h:commandLink immediate="true" id="botaoeditartelefone">		
-						<h:graphicImage alt="Icone de editar" url="resources/img/editarIcon.png" width="43" height="40"/>
-						<f:setPropertyActionListener value="#{fone}" target="#{telefoneManagedBean.telefone}"/>
-						<f:ajax execute="botaoeditartelefone" render=":formCadastroTelefone"/>
-					</h:commandLink>
+					<center>
+						<h:commandLink immediate="true" id="botaoeditartelefone">		
+							<h:graphicImage alt="Icone de editar" url="resources/img/editarIcon.png" width="43" height="40"/>
+							<f:setPropertyActionListener value="#{fone}" target="#{telefoneManagedBean.telefone}"/>
+							<f:ajax execute="botaoeditartelefone" render=":formCadastroTelefone"/>
+						</h:commandLink>
+					</center>	
 				</p:column>
 			
 				<p:column headerText="Excluir" rendered="#{usuarioManagedBean.permiteAcesso('ADM')}">
-					<h:commandLink action="#{telefoneManagedBean.removerTelefone}" id="botaoremovertelefone" immediate="true">
-						<h:graphicImage alt="Icone de deletar" url="resources/img/deleteIcon.png" width="43" height="40" />
-						<f:setPropertyActionListener value="#{fone}" target="#{telefoneManagedBean.telefone}"/>
-						<f:ajax execute="botaoremovertelefone" render="@form :formCadastroTelefone:msg"/>
-					</h:commandLink>
+					<center>
+						<h:commandLink action="#{telefoneManagedBean.removerTelefone}" id="botaoremovertelefone" immediate="true">
+							<h:graphicImage alt="Icone de deletar" url="resources/img/deleteIcon.png" width="43" height="40" />
+							<f:setPropertyActionListener value="#{fone}" target="#{telefoneManagedBean.telefone}"/>
+							<f:ajax execute="botaoremovertelefone" render="@form :formCadastroTelefone:msg"/>
+						</h:commandLink>
+					</center>	
 				</p:column>
 							
 			</p:dataTable>

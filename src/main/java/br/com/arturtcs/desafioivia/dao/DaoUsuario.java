@@ -1,5 +1,7 @@
 package br.com.arturtcs.desafioivia.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
@@ -33,6 +35,11 @@ public class DaoUsuario<T> extends DaoGeneric<Usuario> {
 		em.close();
 
 		return usuario;
+	}
+
+	public List<Usuario> pesquisarUsuario(String campoPesquisa) {
+		return getEm().createQuery("from Usuario where nome like '%" + campoPesquisa + "%'  ", Usuario.class)
+				.getResultList();
 	}
 
 }

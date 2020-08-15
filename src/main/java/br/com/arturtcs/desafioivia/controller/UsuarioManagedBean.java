@@ -28,6 +28,7 @@ public class UsuarioManagedBean {
 	private Usuario usuario = new Usuario();
 	private List<Usuario> list = new ArrayList<Usuario>();
 	private DaoUsuario<Usuario> dao = new DaoUsuario<Usuario>();
+	private String campoPesquisa;
 
 	@PostConstruct
 	public void init() {
@@ -38,7 +39,7 @@ public class UsuarioManagedBean {
 		Usuario usuarioLogar = dao.login(usuario.getEmail(), usuario.getSenha());
 
 		if (usuarioLogar != null) {
-			// adicionar o usuário na sessão usuarioLogado
+			// adicionar o usuário na sessão - usuarioLogado
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuarioLogado", usuarioLogar);
 
 			return "usuarioCadastro.jsf";
@@ -81,13 +82,17 @@ public class UsuarioManagedBean {
 		usuario = new Usuario();
 		return "";
 	}
+	
+	public void pesquisar() {
+		list = dao.pesquisarUsuario(campoPesquisa);
+	}
 
 	public String excluirUsuario() {
 		try {
 			dao.removerUsuarioCascata(usuario);
 			usuario = new Usuario();
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Excluído com sucesso!"));
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Removido com sucesso!"));
 
 		} catch (Exception e) {
 			if (e.getCause() instanceof org.hibernate.exception.ConstraintViolationException) {
@@ -109,7 +114,7 @@ public class UsuarioManagedBean {
 			URL url = new URL("https://viacep.com.br/ws/" + usuario.getCep() + "/json/");
 			URLConnection connection = url.openConnection();
 			InputStream is = connection.getInputStream();
-			BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+			var br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
 
 			String cep = "";
 			StringBuilder jsonCep = new StringBuilder();
@@ -126,6 +131,8 @@ public class UsuarioManagedBean {
 			usuario.setBairro(usuarioCep.getBairro());
 			usuario.setLocalidade(usuarioCep.getLocalidade());
 			usuario.setUf(usuarioCep.getUf());
+			
+			br.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -148,4 +155,13 @@ public class UsuarioManagedBean {
 		this.list = list;
 	}
 
+	public String getCampoPesquisa() {
+		return campoPesquisa;
+	}
+
+	public void setCampoPesquisa(String campoPesquisa) {
+		this.campoPesquisa = campoPesquisa;
+	}
+
+	
 }

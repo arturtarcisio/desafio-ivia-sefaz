@@ -4,8 +4,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 	
 	<h:head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
@@ -16,9 +15,9 @@
 
 		<ui:include src="/menu.xhtml" />
 		
-		<h:form id="formularioCadastro">
-	
-			<p:messages showDetail="true" showSummary="false" id="msg"/>
+		<h:form id="formularioCadastro">	
+			
+			<p:growl autoUpdate="true" showDetail="true" id="msg"/>
 					
 			<h:panelGrid columns="2">
 		
@@ -31,16 +30,16 @@
 				<p:outputLabel>Nome:</p:outputLabel>
 				<p:inputText value="#{usuarioManagedBean.usuario.nome}"
 					required="true"
-					requiredMessage="Favor informar um nome!" pt:placeholder="Nome completo"/>
+					requiredMessage="Favor informar um nome!" placeholder="Nome completo"/>
 					
 				<p:outputLabel>Cep:</p:outputLabel>
-				<p:inputText value="#{usuarioManagedBean.usuario.cep}" id="cepuser" pt:placeholder="Apenas números">
+				<p:inputText value="#{usuarioManagedBean.usuario.cep}" id="cepuser" placeholder="Apenas números">
 					<f:ajax event="blur" execute="@this" listener="#{usuarioManagedBean.pesquisaCep}" 
 					render="complementouser localidadeuser logradourouser ufuser"/>
 				</p:inputText>
 			
 				<p:outputLabel>Complemento:</p:outputLabel>
-				<p:inputText readonly="true" value="#{usuarioManagedBean.usuario.complemento}" id="complementouser"/>
+				<p:inputText  readonly="true" value="#{usuarioManagedBean.usuario.complemento}" id="complementouser"/>
 				
 				<p:outputLabel>Localidade:</p:outputLabel>
 				<p:inputText readonly="true" value="#{usuarioManagedBean.usuario.localidade}" id="localidadeuser"/>
@@ -78,6 +77,20 @@
 		<br/>
 			
 		</h:form>
+		
+		<h:form>
+			<p:panel header="Consultar Usuário" style="width: 450px">
+				<h:panelGrid columns="3">
+					<p:outputLabel value="Nome: "/>
+					<p:inputText value="#{usuarioManagedBean.campoPesquisa}"/>
+					<p:commandButton value="Buscar" ajax="false" id="pesquisarButton" 
+						actionListener="#{usuarioManagedBean.pesquisar}" update="formListaUsuarios"/>
+				</h:panelGrid>
+			
+			</p:panel>
+		</h:form>
+		
+		<br/>
 		
 		<h:form id="formListaUsuarios">	
 			
@@ -122,26 +135,32 @@
 			</p:column>		
 			
 			<p:column headerText="Editar" rendered="#{usuarioManagedBean.permiteAcesso('ADM')}">
-				<h:commandLink immediate="true" id="botaoeditar">		
-					<h:graphicImage alt="Icone de editar" url="resources/img/editarIcon.png" width="43" height="40"/>
-					<f:setPropertyActionListener value="#{usuario}" target="#{usuarioManagedBean.usuario}"/>
-					<f:ajax execute="botaoeditar" render=":formularioCadastro"/>
-				</h:commandLink>
+				<center>
+					<h:commandLink immediate="true" id="botaoeditar">		
+						<h:graphicImage alt="Icone de editar" url="resources/img/editarIcon.png" width="43" height="40"/>
+						<f:setPropertyActionListener value="#{usuario}" target="#{usuarioManagedBean.usuario}"/>
+						<f:ajax execute="botaoeditar" render=":formularioCadastro"/>
+					</h:commandLink>
+				</center>
 			</p:column>
 			
 			<p:column headerText="Excluir" rendered="#{usuarioManagedBean.permiteAcesso('ADM')}">
-				<h:commandLink action="#{usuarioManagedBean.excluirUsuario}" id="botaoremover" immediate="true">
-					<h:graphicImage alt="Icone de deletar" url="resources/img/deleteIcon.png" width="43" height="40" />
-					<f:setPropertyActionListener value="#{usuario}" target="#{usuarioManagedBean.usuario}"/>
-					<f:ajax execute="botaoremover" render="@form :formularioCadastro:msg"/>
-				</h:commandLink>
+				<center>
+					<h:commandLink action="#{usuarioManagedBean.excluirUsuario}" id="botaoremover" immediate="true">
+						<h:graphicImage alt="Icone de deletar" url="resources/img/deleteIcon.png" width="43" height="40" />
+						<f:setPropertyActionListener value="#{usuario}" target="#{usuarioManagedBean.usuario}"/>
+						<f:ajax execute="botaoremover" render="@form :formularioCadastro:msg"/>
+					</h:commandLink>
+				</center>
 			</p:column>
 			
 			<p:column headerText="Telefone">
-				<h:commandLink action="telefoneCadastro.jsf" id="botaofone" >
-					<h:graphicImage alt="Icone de cadastro de telefone" url="resources/img/phoneIcon.png" width="43" height="40"/> 
-					<f:param name="codigousuario" value="#{usuario.id}"/>					
-				</h:commandLink>
+				<center>
+					<h:commandLink action="telefoneCadastro.jsf" id="botaofone" >
+						<h:graphicImage alt="Icone de cadastro de telefone" url="resources/img/phoneIcon.png" width="43" height="40"/> 
+						<f:param name="codigousuario" value="#{usuario.id}"/>					
+					</h:commandLink>
+				</center>
 			</p:column>
 		
 		</p:dataTable>	
