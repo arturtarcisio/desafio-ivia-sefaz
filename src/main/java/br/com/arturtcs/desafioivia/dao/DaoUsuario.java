@@ -37,9 +37,11 @@ public class DaoUsuario<T> extends DaoGeneric<Usuario> {
 		return usuario;
 	}
 
-	public List<Usuario> pesquisarUsuario(String campoPesquisa) {
-		return getEm().createQuery("from Usuario where nome like '%" + campoPesquisa + "%'  ", Usuario.class)
+	public List<Usuario> pesquisarUsuario(String nome) {
+		return getEm().createQuery("from Usuario where upper(nome) like '%" + nome + "%'  ", Usuario.class)
 				.getResultList();
 	}
 
+//	return getEm().createQuery("from Usuario where upper(nome) like '%" + nome + "%'  ", Usuario.class)
+	
 }

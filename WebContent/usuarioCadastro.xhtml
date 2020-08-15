@@ -82,7 +82,7 @@
 			<p:panel header="Consultar Usuário" style="width: 450px">
 				<h:panelGrid columns="3">
 					<p:outputLabel value="Nome: "/>
-					<p:inputText value="#{usuarioManagedBean.campoPesquisa}"/>
+					<p:inputText value="#{usuarioManagedBean.nome}"/>
 					<p:commandButton value="Buscar" ajax="false" id="pesquisarButton" 
 						actionListener="#{usuarioManagedBean.pesquisar}" update="formListaUsuarios"/>
 				</h:panelGrid>
@@ -94,7 +94,8 @@
 		
 		<h:form id="formListaUsuarios">	
 			
-		<p:dataTable value="#{usuarioManagedBean.list}" var="usuario" cellpadding="9" border="1">
+		<p:dataTable value="#{usuarioManagedBean.list}" var="usuario" rows="5" paginator="true" lazy="true"
+			paginatorPosition="bottom">
 			
 			<f:facet name="header">Lista de usuários</f:facet>
 			

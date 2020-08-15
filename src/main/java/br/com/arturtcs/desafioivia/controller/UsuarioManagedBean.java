@@ -28,7 +28,7 @@ public class UsuarioManagedBean {
 	private Usuario usuario = new Usuario();
 	private List<Usuario> list = new ArrayList<Usuario>();
 	private DaoUsuario<Usuario> dao = new DaoUsuario<Usuario>();
-	private String campoPesquisa;
+	private String nome;
 
 	@PostConstruct
 	public void init() {
@@ -62,8 +62,8 @@ public class UsuarioManagedBean {
 	public boolean permiteAcesso(String acesso) {
 		Usuario usuario = (Usuario) FacesContext.getCurrentInstance()
 				.getExternalContext().getSessionMap().get("usuarioLogado");
-		return usuario.getPerfil().equals(acesso);
-		
+	
+		return usuario.getPerfil().equals(acesso);		
 	}
 
 	public String salvar() {
@@ -84,7 +84,7 @@ public class UsuarioManagedBean {
 	}
 	
 	public void pesquisar() {
-		list = dao.pesquisarUsuario(campoPesquisa);
+		list = dao.pesquisarUsuario(nome.toUpperCase());
 	}
 
 	public String excluirUsuario() {
@@ -155,12 +155,12 @@ public class UsuarioManagedBean {
 		this.list = list;
 	}
 
-	public String getCampoPesquisa() {
-		return campoPesquisa;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setCampoPesquisa(String campoPesquisa) {
-		this.campoPesquisa = campoPesquisa;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	
